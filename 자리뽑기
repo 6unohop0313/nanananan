@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진짜 ㄹㅇ 랜덤 자리 배치 </title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 40px;
+        }
+
+        /* 칠판 */
+        #board {
+            width: 450px;
+            height: 60px;
+            background-color: #333;
+            color: white;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
+        }
+
+        /* 버튼 */
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        /* 자리표 */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(4, 100px); /* 가로 4 */
+            grid-template-rows: repeat(5, 100px);    /* 세로 5 */
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            font-weight: bold;
+            border: 2px solid #555;
+            border-radius: 10px;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="color:#c321c2">진짜 ㄹㅇ 랜덤 자리 뽑기 </h1>
+
+    <!-- 랜덤 배치 버튼 -->
+    <button onclick="makeRandomSeats()">자리뽑기 </button>
+
+    <!-- 칠판 -->
+    <div id="board">📚 칠판</div>
+
+    <!-- 자리표 -->
+    <div id="grid"></div>
+
+    <script>
+        function makeRandomSeats() {
+            const numbers = [...Array(20).keys()].map(n => n + 1);
+
+            // Fisher-Yates Shuffle
+            for (let i = numbers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+            }
+
+            const grid = document.getElementById("grid");
+            grid.innerHTML = ""; // 기존 자리표 비우기
+
+            numbers.forEach(num => {
+                const cell = document.createElement("div");
+                cell.className = "cell";
+                cell.innerText = num;
+                grid.appendChild(cell);
+            });
+        }
+    </script>
+
+</body>
+</html>
